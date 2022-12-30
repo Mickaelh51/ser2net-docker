@@ -1,0 +1,19 @@
+version: '3.3'
+
+networks:
+  swarm-homeassistant:
+    external: true
+
+services:
+  rflink2mqtt:
+    image: mickaelh51/ser2net:4.3.3
+    container_name: ser2net
+    hostname: ser2net
+    devices:
+      - "/dev/ttyACM1:/dev/ttyACM1"
+      - "/dev/ttyACM0:/dev/ttyACM0"
+    volumes:
+      - ./ser2net.yaml:/etc/ser2net.yaml
+    restart: always
+    networks:
+      - swarm-homeassistant
